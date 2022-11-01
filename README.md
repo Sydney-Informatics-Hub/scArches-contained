@@ -6,6 +6,8 @@ Cuda, torch, etc versions have been modifed from the [original conda environment
 
 If you have used this work for a publication, you must acknowledge SIH, e.g: "The authors acknowledge the technical assistance provided by the Sydney Informatics Hub, a Core Research Facility of the University of Sydney."
 
+If you don't want to build anything, you can download the singularity image directly from [here.](https://unisyd-my.sharepoint.com/:u:/g/personal/nathaniel_butterworth_sydney_edu_au/EXSMNJ0ek3FBmMFBQUvLXOoBFjvVDY82fGBLVR_h4yO9JA?e=SPhHTl)
+
 # Build with docker
 ```
 sudo docker build . -t nbutter/megadetector:ubuntu1604
