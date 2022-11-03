@@ -56,5 +56,7 @@ RUN wget -O blobs/md_v5b.0.0.pt https://github.com/microsoft/CameraTraps/release
 # Finally, set up the conda env in the base
 RUN conda install Pillow=9.1.0 nb_conda_kernels ipykernel tqdm jsonpickle humanfriendly numpy matplotlib opencv requests pandas seaborn>=0.11.0 PyYAML>=5.3.1 pytorch::pytorch=1.10.1 pytorch::torchvision=0.11.2 conda-forge::cudatoolkit=10.2 conda-forge::cudnn=8.1 -c conda-forge
 
+
+RUN mkdir /project /scratch
 CMD /bin/bash
 #
