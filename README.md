@@ -9,7 +9,7 @@ If you have used this work for a publication, you must acknowledge SIH, e.g: "Th
 
 # Quickstart
 
-If you don't want to build anything, you can download the singularity image directly from [here.](https://unisyd-my.sharepoint.com/:u:/g/personal/nathaniel_butterworth_sydney_edu_au/EXSMNJ0ek3FBmMFBQUvLXOoBFjvVDY82fGBLVR_h4yO9JA?e=SPhHTl)
+If you don't want to build anything, you can download the singularity image directly from [here.](https://cloudstor.aarnet.edu.au/plus/s/nJs3pjU0cLwpb6R/download)
 
 Put it on Artemis/Gadi then modify the `run_????.pbs` files and launch with `qsub run_???.pbs`.
 
@@ -17,6 +17,7 @@ Otherwise here are the full instructions for getting there....
 
 
 # Build with docker
+Check out this repo then build the Docker file.
 ```
 sudo docker build . -t nbutter/megadetector:ubuntu1604
 ```
