@@ -1,9 +1,9 @@
-#PBS -P SIHnextgen
+#PBS -P <YOUR_PROJECT>
 #PBS -l select=1:ncpus=4:ngpus=1:mem=32gb
 #PBS -l walltime=0:10:00
 #PBS -N job01
 
-indir=/project/SIHsandbox/camera_traps/Wildcount_photos/
+indir=/project/<YOUR_PROJECT>/path_to_photos/
 outfile=job_out.json
 
 module load singularity
