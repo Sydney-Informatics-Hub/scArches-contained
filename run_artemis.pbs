@@ -3,11 +3,13 @@
 #PBS -l walltime=0:10:00
 #PBS -N job01
 
-indir=/project/<YOUR_PROJECT>/path_to_photos/
-outfile=job_out.json
-
 module load singularity
 
 cd $PBS_O_WORKDIR
 
-singularity run --nv --bind /project:/project mega.img /bin/bash -c "python /build/cameratraps/detection/run_detector_batch.py /build/blobs/md_v5b.0.0.pt "${indir}" "${outfile}" --recursive --use_image_queue"
+export SINGLUARITY_CACHEDIR=`pwd`
+export SINGLUARITY_TMPDIR=`pwd`
+
+singularity build scarches.img docker://nbutter/scarches:ubuntu1604
+
+singularity run --nv --bind /project:/project scarches.img /bin/bash -c "cd "$PBS_O_WORKDIR" && python example_Unsupervised_surgery_pipeline_with_SCVI.py"
