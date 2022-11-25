@@ -1,11 +1,11 @@
 #To build this file:
 #sudo docker build . -t nbutter/scarches:ubuntu1604
 
-
 #To run this, mounting your current host directory in the container directory,
-# at /project, and excute the check_installtion script which is in your current
+# at /project, and excute the example script which is in your current
 # working direcotry run:
 #sudo docker run --gpus all -it -v `pwd`:/project nbutter/scarches:ubuntu1604 /bin/bash -c "cd /project && python example_Unsupervised_surgery_pipeline_with_SCVI.py"
+
 #To push to docker hub:
 #sudo docker push nbutter/scarches:ubuntu1604
 
@@ -13,7 +13,7 @@
 #singularity build scarches.img docker://nbutter/scarches:ubuntu1604
 
 #To run the singularity image (noting singularity mounts the current folder by default)
-#singularity run --nv scarches.img python /build/cameratraps/detection/run_detector_batch.py /build/blobs/md_v5a.0.0.pt /build/cameratraps/test_images/test_images/ mdv4test.json --output_relative_filenames --recursive
+#singularity run --nv --bind /project:/project scarches.img /bin/bash -c "cd "$PBS_O_WORKDIR" && python example_Unsupervised_surgery_pipeline_with_SCVI.py"
 
 # Pull base image.
 FROM nvidia/cuda:10.2-cudnn8-devel-ubuntu16.04
