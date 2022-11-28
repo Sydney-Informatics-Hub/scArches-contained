@@ -20,7 +20,7 @@ cell_type_key = 'cell_type'
 target_conditions = ['Pancreas CelSeq2', 'Pancreas SS2']
 
 # url = 'https://drive.google.com/uc?id=1ehxgfHTsMZXy6YzlFKGJOsBKQ5rrvMnd'
-# output = 'pancreas.h5ad'
+# output = 'pancreas_normalized.h5ad'
 # gdown.download(url, output, quiet=False)
 
 adata_all = sc.read('pancreas_normalized.h5ad')
@@ -45,20 +45,27 @@ vae = sca.models.SCVI(
     use_batch_norm="none",
 )
 
-vae.train()
+vae.train(10)
 
 reference_latent = sc.AnnData(vae.get_latent_representation())
 reference_latent.obs["cell_type"] = source_adata.obs[cell_type_key].tolist()
 reference_latent.obs["batch"] = source_adata.obs[condition_key].tolist()
 
+
 sc.pp.neighbors(reference_latent, n_neighbors=8)
+print("1")
 sc.tl.leiden(reference_latent)
+print("2")
 sc.tl.umap(reference_latent)
+print("3")
 sc.pl.umap(reference_latent,
            color=['batch', 'cell_type'],
            frameon=False,
            wspace=0.6,
+           save='fig1.png',
+           show=False
            )
+
 
 ref_path = 'ref_model/'
 vae.save(ref_path, overwrite=True)
@@ -69,7 +76,7 @@ model = sca.models.SCVI.load_query_data(
     freeze_dropout = True,
 )
 
-model.train(max_epochs=200, plan_kwargs=dict(weight_decay=0.0))
+model.train(max_epochs=20, plan_kwargs=dict(weight_decay=0.0))
 
 query_latent = sc.AnnData(model.get_latent_representation())
 query_latent.obs['cell_type'] = target_adata.obs[cell_type_key].tolist()
@@ -85,8 +92,28 @@ sc.pl.umap(
     color=["batch", "cell_type"],
     frameon=False,
     wspace=0.6,
+    save='fig2.png',
+    show=False
 )
 
 
 surgery_path = 'surgery_model'
 model.save(surgery_path, overwrite=True)
+
+adata_full = source_adata.concatenate(target_adata)
+full_latent = sc.AnnData(model.get_latent_representation(adata=adata_full))
+full_latent.obs['cell_type'] = adata_full.obs[cell_type_key].tolist()
+full_latent.obs['batch'] = adata_full.obs[condition_key].tolist()
+
+sc.pp.neighbors(full_latent)
+sc.tl.leiden(full_latent)
+sc.tl.umap(full_latent)
+plt.figure()
+sc.pl.umap(
+    full_latent,
+    color=["batch", "cell_type"],
+    frameon=False,
+    wspace=0.6,
+    save='fig3.png',
+    show=False
+)

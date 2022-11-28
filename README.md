@@ -8,7 +8,12 @@ If you have used this work for a publication, you must acknowledge SIH, e.g: "Th
 
 # Quickstart for Artemis
 
-Put it on Artemis then modify the `run_artemis.pbs` script and launch with `qsub run_artemis.pbs`.
+Put it on Artemis e.g.
+```
+cd /project/<YOUR_PROJECT>
+git clone https://github.com/Sydney-Informatics-Hub/scArches-contained.git
+```
+Then `cd scArches-contained` and modify the `run_artemis.pbs` script and launch with `qsub run_artemis.pbs`.
 
 Otherwise here are the full instructions for getting there....
 
