@@ -42,8 +42,8 @@ See the repo at [https://hub.docker.com/r/nbutter/scarches](https://hub.docker.c
 
 ## Build with singularity
 ```
-export SINGLUARITY_CACHEDIR=`pwd`
-export SINGLUARITY_TMPDIR=`pwd`
+export SINGULARITY_CACHEDIR=`pwd`
+export SINGULARITY_TMPDIR=`pwd`
 
 singularity build scarches.img docker://nbutter/scarches:ubuntu1604
 ```
